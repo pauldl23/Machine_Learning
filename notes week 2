@@ -1,0 +1,122 @@
+'o'  Circle              'p'  Pentagon
+'s'  Square              '*'  Star
+'^'  Triangle pointing up
+'v'  Triangle pointing down
+'>'  Triangle pointing right
+'<'  Triangle pointing left
+'D'  Diamond             'd'  Thin diamond
+'h'  Hexagon             'H'  Rotated hexagon
+'+'  Plus                'x'  Cross
+'_'  Horizontal line
+
+
+color           → color of the line
+markerfacecolor / mfc → fill color of the marker
+markeredgecolor / mec → edge color of the marker
+
+
+'blue', 'green', 'red', 'cyan', 'magenta',
+'yellow', 'black', 'white'
+
+'b'  blue
+'g'  green
+'r'  red
+'c'  cyan
+'m'  magenta
+'y'  yellow
+'k'  black
+'w'  white
+
+
+# plotting 2 lines using pandas
+
+from matplotlib import pyplot as plt
+import pandas as pd
+
+# Read CSV into a DataFrame
+df = pd.read_csv('dev_salaries2.csv')
+
+# Create figure size
+plt.figure(figsize=(10, 6))
+
+# Plot All Developers
+plt.plot(
+    df['age'],
+    df['all_devs'],
+    label='All Devs',
+    color='blue',
+    marker='^',
+    mfc='gray',
+    mec='#FF5733'
+)
+
+# Plot Python Developers
+plt.plot(
+    df['age'],
+    df['python_devs'],
+    label='Python Devs',
+    color='green',
+    marker='o',
+    markerfacecolor='red'
+)
+
+# Plot C++ Developers
+plt.plot(
+    df['age'],
+    df['cpp_devs'],
+    linestyle='--',
+    label='CPP Devs'
+)
+
+# Labels and title
+plt.xlabel('Ages')
+plt.ylabel('Median Salaries (USD)')
+plt.title('Median Salary (USD) by Age')
+
+# Legend positioning
+plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
+
+plt.show()
+
+#Generate and plot Data
+import pandas as pd
+import matplotlib.pyplot as plt
+import random
+import calendar
+
+# Days of the week
+days = list(calendar.day_name)
+
+# Generate random temperature data
+max_temps = [random.randint(25, 35) for _ in days]
+min_temps = [random.randint(15, 25) for _ in days]
+avg_temps = [(max_temps[i] + min_temps[i]) / 2 for i in range(len(days))]
+
+# Create DataFrame
+df = pd.DataFrame({
+    'Day': days,
+    'Max_Temp_C': max_temps,
+    'Min_Temp_C': min_temps,
+    'Avg_Temp_C': avg_temps
+})
+
+
+
+df.to_csv('genTemp.csv', index=False)
+print("Generated temperatures saved to genTemp.csv")
+print(df)
+
+df_plot = pd.read_csv('genTemp.csv')
+
+plt.figure(figsize=(10,6))
+plt.plot(df_plot['Day'], df_plot['Max_Temp_C'], label='Max Temp', marker='o', color='red')
+plt.plot(df_plot['Day'], df_plot['Min_Temp_C'], label='Min Temp', marker='o', color='blue')
+plt.plot(df_plot['Day'], df_plot['Avg_Temp_C'], label='Avg Temp', marker='o', color='green')
+
+plt.xlabel('Day of the Week')
+plt.ylabel('Temperature (°C)')
+plt.title('Generated Temperature Over a Week')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()

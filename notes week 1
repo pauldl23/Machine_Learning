@@ -1,0 +1,138 @@
+# =========================
+# Version 1 – Using Lists
+# =========================
+
+from matplotlib import pyplot as plt
+
+# Manually defined data
+dev_x = [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35]
+dev_y = [38496, 42000, 46752, 49320, 53200, 56500,
+         62316, 64928, 67317, 68748, 73752]
+
+# Plot the data
+plt.title('Median Salary (USD) by Age')
+plt.xlabel('Ages')
+plt.ylabel('Median Salaries (USD)')
+plt.plot(dev_x, dev_y)
+
+plt.show()
+
+# =========================
+# Version 2 – Using CSV Reader
+# =========================
+
+from matplotlib import pyplot as plt
+import csv
+
+# Lists to store CSV data
+ages = []
+salaries = []
+
+# Read data from CSV file
+with open('dev_salaries.csv', newline='') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        ages.append(int(row['age']))
+        salaries.append(int(row['salary']))
+
+# Plot the data
+plt.title('Median Salary (USD) by Age')
+plt.xlabel('Ages')
+plt.ylabel('Median Salaries (USD)')
+plt.plot(ages, salaries)
+
+plt.show()
+
+
+# =========================
+# Version 3 – Using Pandas
+# =========================
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Read data from CSV using pandas
+df = pd.read_csv('dev_salaries.csv')
+
+# Plot the data
+plt.title('Median Salary (USD) by Age')
+plt.xlabel('Ages')
+plt.ylabel('Median Salaries (USD)')
+plt.plot(df['age'], df['salary'])
+
+plt.show()
+
+
+
+# ==========================================
+# Version 1 – Plotting 2 Lines (Traditional CSV Import)
+# ==========================================
+
+from matplotlib import pyplot as plt
+import csv
+
+ages = []
+all_devs = []
+
+# Read data from CSV
+with open('dev_salaries2.csv', newline='') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        ages.append(int(row['age']))
+        all_devs.append(int(row['all_devs']))
+
+# Plot the data
+plt.plot(ages, all_devs)
+plt.xlabel('Ages')
+plt.ylabel('Median Salaries (USD)')
+plt.title('Median Salary (USD) by Age')
+
+plt.show()
+
+
+
+
+# ==========================================
+# Version 2 – Plotting 2 Lines with Styling
+# ==========================================
+
+from matplotlib import pyplot as plt
+import csv
+
+ages = []
+all_devs = []
+python_devs = []
+
+# Read data from CSV
+with open('dev_salaries2.csv', newline='') as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        ages.append(int(row['age']))
+        all_devs.append(int(row['all_devs']))
+        python_devs.append(int(row['python_devs']))
+
+# Plot lines with styles
+plt.plot(
+    ages, all_devs,
+    label='All Devs',
+    color='blue',
+    marker='o',
+    markerfacecolor='red',
+    markeredgecolor='black'
+)
+
+plt.plot(
+    ages, python_devs,
+    label='Python Devs',
+    color='green',
+    marker='o',
+    mfc='gray',
+    mec='yellow'
+)
+
+plt.xlabel('Ages')
+plt.ylabel('Median Salaries (USD)')
+plt.title('Median Salary (USD) by Age')
+plt.legend()
+
+plt.show()
